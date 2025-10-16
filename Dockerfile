@@ -1,5 +1,14 @@
 FROM nginx:alpine
 
-COPY index.html style.css /usr/share/nginx/html/
+WORKDIR /usr/share/nginx/html
+
+COPY index.html .
+
+COPY Archivo.zip .
+
+RUN apk add --no-cache unzip && \
+    unzip Archivo.zip -d . && \
+    rm Archivo.zip && \
+    chmod -R 755 /usr/share/nginx/html
 
 EXPOSE 80
